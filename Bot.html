@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bot de Respostas e Calculadora de Compras</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        #container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        select, input {
+            margin-bottom: 10px;
+            padding: 5px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <form id="bot-form">
+            <label for="opcoes">Escolha uma opção:</label>
+            <select id="opcoes">
+                <option value="1">Créditos</option>
+                <option value="2">Opção 2</option>
+                <option value="3">Opção 3</option>
+                <option value="4">Opção 4</option>
+            </select>
+            <br>
+            <button type="button" onclick="responder()">Obter Resposta</button>
+        </form>
+        <p id="resposta"></p>
+
+        <form id="compra-form">
+            <label for="produto">Escolha um produto:</label>
+            <select id="produto">
+                <option value="produto1" data-preco="1.20">100cr xbox - R$ 1,20</option>
+                <option value="produto2" data-preco="6.00">500cr xbox - R$ 6,00</option>
+                <option value="produto3" data-preco="12.00">1000cr xbox - R$ 12,00</option>
+            </select>
+            <br>
+            <label for="quantidade">Quantidade:</label>
+            <input type="number" id="quantidade" min="1" value="1">
+            <br>
+            <button type="button" onclick="calcularTotal()">Calcular Total</button>
+        </form>
+        <p id="total"></p>
+
+        <button id="copiarBtn">Copiar Pix</button>
+    </div>
+
+    <script>
+        function responder() {
+            var opcaoSelecionada = document.getElementById("opcoes").value;
+            var resposta = "";
+
+            switch (opcaoSelecionada) {
+                case "1":
+                    resposta = "Para comprar crédito, basta selecionar a quantidade abaixo.";
+                    break;
+                case "2":
+                    resposta = "Você selecionou a opção 2. A resposta é: ...";
+                    break;
+                case "3":
+                    resposta = "Você selecionou a opção 3. A resposta é: ...";
+                    break;
+                case "4":
+                    resposta = "Você selecionou a opção 4. A resposta é: ...";
+                    break;
+                default:
+                    resposta = "Opção inválida.";
+            }
+
+            document.getElementById("resposta").textContent = resposta;
+        }
+
+        function calcularTotal() {
+            var produtoSelecionado = document.getElementById("produto");
+            var quantidade = document.getElementById("quantidade").value;
+            var precoUnitario = parseFloat(produtoSelecionado.options[produtoSelecionado.selectedIndex].getAttribute("data-preco"));
+            var total = precoUnitario * quantidade;
+            document.getElementById("total").textContent = "Total a pagar: R$ " + total.toFixed(2);
+        }
+
+        document.getElementById("copiarBtn").addEventListener("click", function() {
+            var textoParaCopiar = "italo"; this.textContent;
+            navigator.clipboard.writeText(textoParaCopiar).then(function() {
+                alert("Texto do botão copiado para a área de transferência: " + textoParaCopiar);
+            }).catch(function(err) {
+                console.error('Erro ao copiar: ', err);
+            });
+        });
+    </script>
+</body>
+</html>
